@@ -1,0 +1,87 @@
+---
+title: "Submission for early feedback"
+subtitle: "Assignment 4 ETC5512"
+author: "Annamalai Vikash Raam Manoj"
+format: html
+editor: visual
+---
+
+### Proposed Question
+
+My main research question is:
+
+**How were Melbourne CBD pedestrian activity patterns associated with the temporary free public transport initiative introduced in Victoria during April and May 2026?**
+
+To answer this question, I plan to investigate several related sub-questions:
+
+- Did pedestrian activity levels change during the initiative period compared to earlier months in 2026?
+
+- Were the observed patterns different from equivalent periods in 2025?
+
+- Did some locations, such as transport-heavy areas, retail precincts or commuter corridors, experience larger changes than others?
+
+- Were there noticeable differences across time periods such as peak commuting hours, daytime activity or weekends?
+
+The broader motivation of this project is to explore how open urban mobility data can help better understand accessibility, walkability and city activity patterns that may help inform future transport and urban planning decisions.
+
+### Proposed Data
+
+I will primarily use the City of Melbourne Pedestrian Counting System dataset available through Melbourne Open Data and data.gov.au.
+
+Dataset links:
+
+- <https://www.pedestrian.melbourne.vic.gov.au/>
+
+- <https://data.melbourne.vic.gov.au/explore/dataset/pedestrian-counting-system-monthly-counts-per-hour/>
+
+The dataset contains hourly pedestrian counts collected from sensor devices located across Melbourne CBD since 2009. The exported dataset is primarily provided in a wide format where each pedestrian counting location is represented as a separate column, alongside date and hour variables. Additional sensor metadata datasets are also available separately and may be used to provide location context.
+
+The data is machine-readable and available in CSV, JSON and API formats. The dataset is updated regularly and is intended for urban planning, transport analysis and pedestrian activity monitoring. Some preprocessing and wrangling will be required because the dataset contains missing values and inconsistent values such as “na” and “undefined”. One limitation noted in the metadata is that sensor locations may change over time, which may affect long-term comparisons. The dataset licence is also listed as “Not Specified”, which I plan to discuss as part of my open data evaluation.
+
+### Responses to checklist
+
+\[ x \] Think about the scope of your assignment. Can you answer the question well in the time available?
+
+Yes. I plan to focus mainly on selected months from 2025 and 2026 instead of analysing the entire dataset history. This keeps the project manageable while still allowing meaningful comparisons.
+
+\[ x \] Does the question you’ve posed provide you sufficient scope to show off some of the skills you’ve learnt in this unit?
+
+Yes. The project will involve data wrangling, reshaping wide data into tidy format, date-time processing, aggregation, visualisation, comparison of temporal trends and critical evaluation of open data quality and metadata.
+
+\[ x \] Is the data you’ve selected suitable to answer your question?
+
+Yes. The dataset contains hourly pedestrian counts, timestamps and multiple location variables that are directly relevant to analysing changes in pedestrian activity patterns. Some cleaning and preprocessing will be required to handle missing and inconsistent values.
+
+\[ x \] Write some pseudo-code, does your approach make sense?
+
+Possible workflow:
+
+- Download pedestrian count datasets for selected periods from Melbourne Open Data
+
+- Import and inspect raw CSV files
+
+- Clean missing and inconsistent values such as “na” and “undefined”
+
+- Reshape wide format data into tidy/long format using pivot_longer()
+
+- Parse and combine date and hour variables into date-time values
+
+- Filter relevant periods from 2025 and 2026
+
+- Aggregate pedestrian counts by day, week, hour and selected locations
+
+- Compare pedestrian activity before and during the free transport initiative
+
+- Compare equivalent periods across years to provide baseline context
+
+- Create visualisations to identify temporal and spatial patterns
+
+- Interpret findings and discuss limitations and implications for urban mobility and accessibility
+
+\[ x \] Is your proposed analysis original? Ensure your analysis is NOT a reproduction but you are adding something new.
+
+Yes. My analysis focuses specifically on pedestrian activity patterns associated with the temporary free public transport initiative in 2026, which is a recent and policy-relevant context rather than a reproduction of existing classroom examples.
+
+\[ x \] Lastly, we want you to chose something you are passionate about to practice your learning. So try to have some fun with this!
+
+I chose this topic because I am interested in how open government data can be used to understand real-world urban mobility and accessibility issues. I also find it interesting that the dataset is actively used by the City of Melbourne for planning and decision-making purposes.
