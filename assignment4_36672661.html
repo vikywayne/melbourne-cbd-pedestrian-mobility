@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Annamalai Vikash Raam Manoj">
+
+<title>Free Public Transport and Pedestrian Activity in Melbourne CBD</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="assignment4_36672661_files/libs/clipboard/clipboard.min.js"></script>
+<script src="assignment4_36672661_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="assignment4_36672661_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="assignment4_36672661_files/libs/quarto-html/popper.min.js"></script>
+<script src="assignment4_36672661_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="assignment4_36672661_files/libs/quarto-html/anchor.min.js"></script>
+<link href="assignment4_36672661_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="assignment4_36672661_files/libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="assignment4_36672661_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="assignment4_36672661_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="assignment4_36672661_files/libs/bootstrap/bootstrap-efbb37e9afcc02144ebbc7afd12a776f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Free Public Transport and Pedestrian Activity in Melbourne CBD</h1>
+<p class="subtitle lead">Assignment 4 ETC5512</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Annamalai Vikash Raam Manoj </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Task 1: Data and Documenting</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Task 2: Blog Post</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Task 3: Behind the Scenes</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<section id="research-question" class="level2">
+<h2 class="anchored" data-anchor-id="research-question">Research Question</h2>
+<p>The primary research question for this project is:<br>
+<br>
+<strong>How were Melbourne CBD pedestrian activity patterns associated with Victoria’s temporary free public transport initiative during April and May 2026?</strong></p>
+<p>To answer this question, the following sub-questions will also be explored:<br>
+<br>
+- Did overall pedestrian activity change during the initiative period compared with February and March 2026?<br>
+- Which sensor locations experienced the largest changes in pedestrian activity?<br>
+- Did activity patterns vary across different times of day?</p>
+<p>- Did pedestrian activity patterns vary by day of the week?</p>
+</section>
+<section id="data-sources" class="level2">
+<h2 class="anchored" data-anchor-id="data-sources">Data Sources</h2>
+<p>Two datasets from the City of Melbourne Open Data platform were used.</p>
+</section>
+<section id="dataset-1-pedestrian-counting-system-monthly-counts-per-hour" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-1-pedestrian-counting-system-monthly-counts-per-hour">Dataset 1: Pedestrian Counting System – Monthly Counts Per Hour</h2>
+<p><br>
+This dataset contains hourly pedestrian counts collected from sensor locations throughout Melbourne CBD. The data is automatically collected and published as open data through the City of Melbourne Open Data portal.<br>
+<br>
+Files used:<br>
+<br>
+- April 2025<br>
+- May 2025<br>
+- February 2026<br>
+- March 2026<br>
+- April 2026<br>
+- May 2026</p>
+</section>
+<section id="dataset-2-pedestrian-counting-system-sensor-locations" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-2-pedestrian-counting-system-sensor-locations">Dataset 2: Pedestrian Counting System – Sensor Locations</h2>
+<p>This supplementary dataset contains sensor metadata including:<br>
+<br>
+- sensor descriptions<br>
+- installation information<br>
+- geographic coordinates<br>
+- operational status<br>
+- sensor notes<br>
+<br>
+The metadata dataset was used to provide location context and support spatial visualisations.</p>
+<p>The datasets are published by the City of Melbourne through its Open Data platform and are updated regularly. Pedestrian counts are collected automatically by sensors installed throughout the CBD, while the metadata dataset provides supporting information about sensor locations and operational characteristics.</p>
+</section>
+<section id="data-audit" class="level2">
+<h2 class="anchored" data-anchor-id="data-audit">Data Audit</h2>
+<p>Prior to analysis, the datasets were audited to assess:</p>
+<ul>
+<li>consistency of dataset structure across months and years</li>
+<li>differences in sensor coverage between 2025 and 2026</li>
+<li>the presence and extent of missing values</li>
+<li>suitability of the sensor metadata for spatial analysis</li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  dataset        rows columns
+  &lt;chr&gt;         &lt;int&gt;   &lt;int&gt;
+1 February 2026   672     115
+2 March 2026      744     115
+3 April 2026      720     115
+4 May 2026        744     115
+5 April 2025      720     108
+6 May 2025        744     108</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  dataset       na_values undefined_values
+  &lt;chr&gt;             &lt;int&gt;            &lt;int&gt;
+1 February 2026      2688             1344
+2 March 2026         2976             1488
+3 April 2026         2880             1440
+4 May 2026           2976             1488</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  sensors active_sensors
+    &lt;int&gt;          &lt;int&gt;
+1     136            136</code></pre>
+</div>
+</div>
+<p>The 2026 datasets each contained 115 columns (Date, Hour and 113 sensor locations), while the 2025 datasets contained 108 columns. This indicated that additional sensors were introduced between 2025 and 2026. As a result, year-to-year comparisons required careful consideration of sensor availability to ensure like-for-like comparisons.</p>
+<p>The audit also identified the use of non-standard missing value indicators (“na” and “undefined”) within the pedestrian count data. These values were converted to standard missing values during data cleaning to improve consistency and compatibility with downstream analysis.</p>
+<p>The sensor metadata file contained 136 sensor records, including sensor descriptions, installation dates, operational status and geographic coordinates. This dataset was used to provide contextual information and support spatial visualisations.</p>
+<p>The audit process informed several subsequent cleaning decisions, including the handling of missing values, selection of comparable sensors across years and preparation of data for spatial analysis.</p>
+</section>
+<section id="data-processing" class="level2">
+<h2 class="anchored" data-anchor-id="data-processing">Data processing</h2>
+<p>The following processing steps were undertaken:<br>
+<br>
+1. Download monthly pedestrian count datasets and sensor location metadata.<br>
+2. Import data into R using the tidyverse packages.<br>
+3. Audit dataset structure and identify inconsistencies.<br>
+4. Convert non-standard missing values (“na” and “undefined”) into standard missing values.<br>
+5. Reshape the data from wide format into tidy long format.<br>
+6. Restrict year-to-year comparisons to sensors available in both 2025 and 2026.<br>
+7. Join pedestrian count data with sensor metadata where required.<br>
+8. Create aggregated datasets for temporal and spatial analysis.</p>
+<p>Data processing involved combining monthly files, standardising missing values, restricting the analysis to sensors available in both years, and reshaping the data into a tidy long format suitable for analysis and visualisation. The resulting dataset contained one row for each sensor-hour observation and formed the basis for all subsequent analyses.</p>
+</section>
+<section id="data-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="data-dictionary">Data Dictionary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 73%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Date</td>
+<td>Date of observation</td>
+<td>Date</td>
+</tr>
+<tr class="even">
+<td>Hour</td>
+<td>Hour of day (0–23)</td>
+<td>Numeric</td>
+</tr>
+<tr class="odd">
+<td>sensor</td>
+<td>Name of pedestrian sensor location</td>
+<td>Character</td>
+</tr>
+<tr class="even">
+<td>count</td>
+<td>Number of pedestrian movements recorded during the hour</td>
+<td>Numeric</td>
+</tr>
+<tr class="odd">
+<td>year</td>
+<td>Observation year used for comparisons</td>
+<td>Numeric</td>
+</tr>
+</tbody>
+</table>
+<!-- Task 2 Tab: Writing your blogpost -->
+</section>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<section id="motivation" class="level2">
+<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
+<p>Melbourne’s temporary free public transport initiative during April and May 2026 provided an opportunity to examine whether a transport policy intervention was associated with changes in pedestrian activity within the CBD. As someone who personally experienced the initiative, I was interested in understanding whether its effects could be observed in publicly available pedestrian movement data.</p>
+<p>Beyond evaluating this specific initiative, the analysis also demonstrates how urban sensor data can be used to assess changes in city activity patterns. Insights from this type of analysis may help policymakers better understand how transport initiatives influence movement within the city and identify locations or periods that experience the greatest changes in activity.</p>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>The primary dataset consists of hourly pedestrian counts collected from automated pedestrian sensors located throughout Melbourne CBD. Each observation represents the number of pedestrian movements recorded by a specific sensor during a particular hour.</p>
+<p>The study focuses on six monthly datasets covering April–May 2025 and February–May 2026. These periods were selected to enable comparison of pedestrian activity before and during the free public transport initiative introduced in April 2026. A supplementary sensor metadata dataset was also used to provide information about sensor locations, installation details and operational status.</p>
+</section>
+<section id="analysis" class="level2">
+<h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
+<section id="overall-pedestrian-activity-before-and-during-the-initiative" class="level3">
+<h3 class="anchored" data-anchor-id="overall-pedestrian-activity-before-and-during-the-initiative">Overall Pedestrian Activity Before and During the Initiative</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-daily-activity" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-daily-activity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assignment4_36672661_files/figure-html/fig-daily-activity-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-daily-activity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Daily pedestrian activity across Melbourne CBD from February to May 2026. The dashed vertical line indicates the commencement of the free public transport initiative on 1 April 2026.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-daily-activity" class="quarto-xref">Figure&nbsp;1</a> shows daily pedestrian activity across Melbourne CBD from February to May 2026. A vertical dashed line marks the commencement of the temporary free public transport initiative in April 2026.</p>
+<p>Pedestrian activity exhibited strong day-to-day variation throughout the study period. While daily counts remained relatively high following the introduction of the initiative, no immediate city-wide increase in pedestrian activity was visually apparent. This suggests that any association between the initiative and pedestrian activity may have been concentrated at specific locations or times of day rather than across the CBD as a whole.</p>
+</section>
+<section id="which-locations-experienced-the-largest-changes" class="level3">
+<h3 class="anchored" data-anchor-id="which-locations-experienced-the-largest-changes">Which Locations Experienced the Largest Changes?</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-location-changes" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-location-changes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assignment4_36672661_files/figure-html/fig-location-changes-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-location-changes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Largest increases and decreases in pedestrian activity between April–May 2025 and April–May 2026.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-location-changes" class="quarto-xref">Figure&nbsp;2</a> shows the locations that experienced the largest changes in pedestrian activity between April–May 2025 and April–May 2026. The largest increases were observed at Flinders Lane–Swanston Street, Melbourne Central, RMIT Building 80 and Bourke Street Mall (South), all of which are located within highly active commercial, retail and university precincts. In contrast, several locations including Southbank, St Kilda Road–Alexandra Gardens and New Quay recorded lower pedestrian volumes during the same period. These findings suggest that changes in pedestrian activity were concentrated in specific areas of the CBD rather than being distributed evenly across all locations.</p>
+</section>
+<section id="did-activity-patterns-vary-across-different-times-of-day" class="level3">
+<h3 class="anchored" data-anchor-id="did-activity-patterns-vary-across-different-times-of-day">Did activity patterns vary across different times of day?</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-hourly-pattern" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hourly-pattern-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assignment4_36672661_files/figure-html/fig-hourly-pattern-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hourly-pattern-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Average hourly pedestrian activity during April–May 2025 and April–May 2026.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-hourly-pattern" class="quarto-xref">Figure&nbsp;3</a> compares the average hourly pedestrian counts during April and May in 2025 and 2026. Both years exhibit a very similar daily pattern, with pedestrian activity remaining low overnight, increasing rapidly during the morning, remaining elevated throughout the afternoon, and reaching a peak during the late afternoon period.</p>
+<p>Although the overall shape of the profiles is nearly identical, pedestrian activity in 2026 was generally higher during the evening hours. The largest differences occurred between 6 pm and 11 pm, where average pedestrian counts were consistently above the corresponding 2025 levels.</p>
+<p>These results suggest that while the free public transport initiative was not associated with major changes in the overall daily pattern of movement within the Melbourne CBD, there may have been a modest increase in evening pedestrian activity. This finding is consistent with the possibility that free transport encouraged additional discretionary travel or extended visits to the city during evening periods. However, the observational nature of the data means that causation cannot be established.</p>
+</section>
+<section id="did-pedestrian-activity-patterns-vary-by-day-of-the-week" class="level3">
+<h3 class="anchored" data-anchor-id="did-pedestrian-activity-patterns-vary-by-day-of-the-week">Did Pedestrian Activity Patterns Vary by Day of the Week?</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-weekday-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-weekday-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assignment4_36672661_files/figure-html/fig-weekday-heatmap-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-weekday-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Average pedestrian activity by weekday and hour during April–May 2025 and April–May 2026.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-weekday-heatmap" class="quarto-xref">Figure&nbsp;4</a> compares pedestrian activity by weekday and hour for April–May 2025 and April–May 2026. Activity remained concentrated during daytime and early evening hours across all days of the week. The similarity between the two heatmaps indicates that weekly behavioural patterns were largely unchanged between years. While some locations experienced increases in pedestrian activity, there was little evidence of substantial changes in the timing of pedestrian movements throughout the week.</p>
+</section>
+</section>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p>The objective of this analysis was to investigate how Melbourne CBD pedestrian activity patterns were associated with Victoria’s temporary free public transport initiative during April and May 2026.</p>
+<p>The results suggest that the initiative was not associated with a substantial city-wide increase in pedestrian activity. Daily pedestrian counts during the initiative period remained broadly consistent with patterns observed prior to its introduction. Similarly, hourly and weekly activity patterns were highly comparable between April–May 2025 and April–May 2026.</p>
+<p>However, location-level analysis revealed that several key CBD locations experienced notable increases in pedestrian activity. Areas such as Melbourne Central, Flinders Lane–Swanston Street and Bourke Street Mall recorded substantially higher pedestrian volumes in 2026 compared with the equivalent period in 2025. This indicates that any changes in activity were concentrated within specific commercial, retail and transport precincts rather than being distributed evenly across the city.</p>
+<p>Overall, the findings provide limited evidence that the free public transport initiative altered the broader temporal patterns of pedestrian movement within Melbourne CBD. While some locations experienced increased pedestrian activity, the observational nature of the data means that other factors such as events, tourism, economic conditions and seasonal variation may also have contributed to the observed changes.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>R Core Team. (2024). <em>R: A language and environment for statistical computing</em>. <a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a></p>
+<p>Wickham, H., et al.&nbsp;(2019). <em>Welcome to the tidyverse</em>. Journal of Open Source Software, 4(43), 1686. <a href="https://doi.org/10.21105/joss.01686" class="uri">https://doi.org/10.21105/joss.01686</a><br>
+</p>
+<p>City of Melbourne Open Data. (2026). Pedestrian Counting System – Monthly Counts Per Hour. City of Melbourne. Retrieved June 2026 from <a href="https://www.pedestrian.melbourne.vic.gov.au/" class="uri">https://www.pedestrian.melbourne.vic.gov.au/</a></p>
+<p>City of Melbourne Open Data. (2026). Pedestrian Counting System – Sensor Locations. City of Melbourne. Retrieved June 2026 from <a href="https://data.melbourne.vic.gov.au/explore/dataset/pedestrian-counting-system-sensor-locations/" class="uri">https://data.melbourne.vic.gov.au/explore/dataset/pedestrian-counting-system-sensor-locations/</a></p>
+<!-- Task 3 Tab: Behind the Scenes -->
+</section>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p><strong>Q5: What were the Non-sexy parts of the analysis ?</strong></p>
+<p>A large portion of the work occurred before any visualisations were created. The most time-consuming task was auditing the datasets to understand differences between the 2025 and 2026 sensor networks. Several sensors were added in 2026, which meant I needed to identify sensors that existed in both years before making any year-to-year comparisons. I also spent time investigating non-standard missing values recorded as “na” and “undefined”, checking dataset consistency across months, and validating the sensor metadata. While these tasks are not visible in the final blog post, they were important for ensuring that the analysis was based on comparable and reliable data.</p>
+<p><strong>Q6: What were the challenges encountered during the project ?</strong></p>
+<p>One challenge was that the results were not what I initially expected. Since the project focused on a free public transport initiative, I anticipated seeing a clear increase in pedestrian activity after its introduction. However, the city-wide trends showed only modest differences, requiring me to investigate activity at individual sensor locations and different time periods to better understand the patterns. Another challenge involved the sensor metadata. I initially planned to include more spatial analysis and map-based visualisations, but many sensor names in the pedestrian count data did not exactly match those in the metadata file. This limited the effectiveness of some mapping approaches and required additional checking and experimentation. I also spent time refining visualisations to ensure they contributed new insights rather than repeating information already shown in previous figures.</p>
+<p><strong>3) Tell us about any imperfect parts of your work and how you would like to expand or improve this analysis in future.</strong></p>
+<p>This analysis focused on a relatively short period consisting of six monthly datasets. While this was sufficient to compare pedestrian activity before and during the initiative, a longer time period would provide a stronger basis for identifying long-term trends and reducing the influence of short-term fluctuations. The analysis is also observational and cannot determine whether the free public transport initiative directly caused the changes observed in pedestrian activity. Other factors such as major events, tourism, weather conditions, university schedules and economic activity may also have influenced pedestrian movement throughout the CBD. If this project were extended, I would incorporate additional datasets and undertake more detailed spatial analysis to better understand how different areas of Melbourne responded to the initiative.</p>
+<p><strong>Q8 - Use of AI during the project</strong></p>
+<p>AI was used primarily as a support and troubleshooting tool throughout the project. It helped identify coding errors, explain error messages, suggest possible visualisation approaches and assist with Quarto formatting issues. However, I did not automatically accept AI-generated suggestions. Many proposed analyses and visualisations were tested against the dataset and several were discarded when they did not produce meaningful insights or were not appropriate for the research question.</p>
+<p>The research question, data preparation decisions, interpretation of results and final conclusions were ultimately my own. AI was most useful for debugging code, exploring alternative approaches and speeding up routine tasks, but all findings were verified using the actual data before being included in the final report.</p>
+<p>AI queries link - <a href="https://chatgpt.com/share/6a2ed6e2-f118-83ec-8cfd-1a9d634b4738" class="uri">https://chatgpt.com/share/6a2ed6e2-f118-83ec-8cfd-1a9d634b4738</a></p>
+<p><strong>Q9. How did the project evolve over time?</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Commit</th>
+<th>Progress Made</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>0eecfe1</strong></td>
+<td>Created the initial project structure, defined the research question, and outlined the major sections of Tasks 1–3.</td>
+</tr>
+<tr class="even">
+<td><strong>4914c3d</strong></td>
+<td>Conducted a data audit, investigated missing values, compared dataset structures, and identified differences in sensor coverage between 2025 and 2026.</td>
+</tr>
+<tr class="odd">
+<td><strong>7bcbf26</strong></td>
+<td>Completed data cleaning and transformation, combined monthly datasets, handled missing values, restricted analysis to comparable sensors, and created the final analysis dataset.</td>
+</tr>
+<tr class="even">
+<td><strong>e2d2b68</strong></td>
+<td>Developed the main analyses, created initial visualisations, interpreted results, and drafted conclusions.</td>
+</tr>
+<tr class="odd">
+<td><strong>8024894 -&gt; 9c531ff</strong></td>
+<td>Added the data dictionary, motivation, references, figure cross-references, improved visual design, refined interpretations, and finalised the report presentation.</td>
+</tr>
+</tbody>
+</table>
+<p>Compared with my initial checklist submission, the project evolved from a broad idea about the free public transport initiative into a structured analysis supported by cleaned pedestrian sensor data, multiple visualisations, and evidence-based conclusions about temporal and spatial activity patterns within Melbourne CBD.</p>
+</div>
+</div>
+</div>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

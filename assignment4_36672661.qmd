@@ -49,9 +49,10 @@ The primary research question for this project is:\
 To answer this question, the following sub-questions will also be explored:\
 \
 - Did overall pedestrian activity change during the initiative period compared with February and March 2026?\
-- Were pedestrian activity patterns during April and May 2026 different from equivalent periods in 2025?\
 - Which sensor locations experienced the largest changes in pedestrian activity?\
 - Did activity patterns vary across different times of day?
+
+\- Did pedestrian activity patterns vary by day of the week?
 
 ## Data Sources
 
@@ -669,5 +670,37 @@ City of Melbourne Open Data. (2026). Pedestrian Counting System – Sensor Locat
 
 <!-- Task 3 Tab: Behind the Scenes -->
 
-# 
+# Task 3: Behind the Scenes
+
+**Q5: What were the Non-sexy parts of the analysis ?**
+
+A large portion of the work occurred before any visualisations were created. The most time-consuming task was auditing the datasets to understand differences between the 2025 and 2026 sensor networks. Several sensors were added in 2026, which meant I needed to identify sensors that existed in both years before making any year-to-year comparisons. I also spent time investigating non-standard missing values recorded as "na" and "undefined", checking dataset consistency across months, and validating the sensor metadata. While these tasks are not visible in the final blog post, they were important for ensuring that the analysis was based on comparable and reliable data.
+
+**Q6: What were the challenges encountered during the project ?**
+
+One challenge was that the results were not what I initially expected. Since the project focused on a free public transport initiative, I anticipated seeing a clear increase in pedestrian activity after its introduction. However, the city-wide trends showed only modest differences, requiring me to investigate activity at individual sensor locations and different time periods to better understand the patterns. Another challenge involved the sensor metadata. I initially planned to include more spatial analysis and map-based visualisations, but many sensor names in the pedestrian count data did not exactly match those in the metadata file. This limited the effectiveness of some mapping approaches and required additional checking and experimentation. I also spent time refining visualisations to ensure they contributed new insights rather than repeating information already shown in previous figures.
+
+**3) Tell us about any imperfect parts of your work and how you would like to expand or improve this analysis in future.**
+
+This analysis focused on a relatively short period consisting of six monthly datasets. While this was sufficient to compare pedestrian activity before and during the initiative, a longer time period would provide a stronger basis for identifying long-term trends and reducing the influence of short-term fluctuations. The analysis is also observational and cannot determine whether the free public transport initiative directly caused the changes observed in pedestrian activity. Other factors such as major events, tourism, weather conditions, university schedules and economic activity may also have influenced pedestrian movement throughout the CBD. If this project were extended, I would incorporate additional datasets and undertake more detailed spatial analysis to better understand how different areas of Melbourne responded to the initiative.
+
+**Q8 - Use of AI during the project**
+
+AI was used primarily as a support and troubleshooting tool throughout the project. It helped identify coding errors, explain error messages, suggest possible visualisation approaches and assist with Quarto formatting issues. However, I did not automatically accept AI-generated suggestions. Many proposed analyses and visualisations were tested against the dataset and several were discarded when they did not produce meaningful insights or were not appropriate for the research question.
+
+The research question, data preparation decisions, interpretation of results and final conclusions were ultimately my own. AI was most useful for debugging code, exploring alternative approaches and speeding up routine tasks, but all findings were verified using the actual data before being included in the final report.
+
+AI queries link - <https://chatgpt.com/share/6a2ed6e2-f118-83ec-8cfd-1a9d634b4738>
+
+**Q9. How did the project evolve over time?**
+
+| Commit | Progress Made |
+|----|----|
+| **0eecfe1** | Created the initial project structure, defined the research question, and outlined the major sections of Tasks 1–3. |
+| **4914c3d** | Conducted a data audit, investigated missing values, compared dataset structures, and identified differences in sensor coverage between 2025 and 2026. |
+| **7bcbf26** | Completed data cleaning and transformation, combined monthly datasets, handled missing values, restricted analysis to comparable sensors, and created the final analysis dataset. |
+| **e2d2b68** | Developed the main analyses, created initial visualisations, interpreted results, and drafted conclusions. |
+| **8024894 -\> 9c531ff** | Added the data dictionary, motivation, references, figure cross-references, improved visual design, refined interpretations, and finalised the report presentation. |
+
+Compared with my initial checklist submission, the project evolved from a broad idea about the free public transport initiative into a structured analysis supported by cleaned pedestrian sensor data, multiple visualisations, and evidence-based conclusions about temporal and spatial activity patterns within Melbourne CBD.
 :::
