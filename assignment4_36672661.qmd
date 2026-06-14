@@ -17,11 +17,14 @@ editor: visual
 
 # Task 1: Data and Documenting
 
-```{r}
-#| include: false
-
+```{r required-libraries}
 library(tidyverse)
 library(janitor)
+library(ggplot2)
+```
+
+```{r load-data}
+#| include: false
 
 feb_2026 <- read_csv("data/February_2026.csv")
 mar_2026 <- read_csv("data/March_2026.csv")
@@ -330,7 +333,245 @@ The following processing steps were undertaken:\
 
 ## Analysis
 
+### Overall Pedestrian Activity Before and During the Initiative
+
+```{r group-daily-total}
+daily_totals <- pedestrian_long %>%
+  filter(year == 2026) %>%
+  group_by(Date) %>%
+  summarise(
+    total_pedestrians = sum(count, na.rm = TRUE)
+  )
+```
+
+```{r before-vs-after-initiative-graph}
+
+ggplot(
+  daily_totals,
+  aes(
+    x = Date,
+    y = total_pedestrians
+  )
+) +
+  geom_line() +
+  geom_vline(
+    xintercept = as.Date("2026-04-01"),
+    linetype = "dashed"
+  ) +
+  labs(
+    title = "Daily Pedestrian Activity in Melbourne CBD",
+    subtitle = "Free public transport initiative commenced in April 2026",
+    x = "Date",
+    y = "Daily pedestrian count"
+  )
+```
+
+Figure 1 shows daily pedestrian activity across Melbourne CBD from February to May 2026. A vertical dashed line marks the commencement of the temporary free public transport initiative in April 2026.
+
+Pedestrian activity exhibited strong day-to-day variation throughout the study period. While daily counts remained relatively high following the introduction of the initiative, no immediate city-wide increase in pedestrian activity was visually apparent. This suggests that any association between the initiative and pedestrian activity may have been concentrated at specific locations or times of day rather than across the CBD as a whole.
+
+### Which Locations Experienced the Largest Changes?
+
+```{r sensor-changes}
+#| include: False
+sensor_change <- pedestrian_long %>%
+  filter(
+    format(Date, "%m") %in% c("04", "05")
+  ) %>%
+  group_by(year, sensor) %>%
+  summarise(
+    total_count = sum(count, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  pivot_wider(
+    names_from = year,
+    values_from = total_count
+  ) %>%
+  mutate(
+    change = `2026` - `2025`,
+    pct_change = ((`2026` - `2025`) / `2025`) * 100
+  )
+```
+
+```{r}
+#| include: False
+sensor_change %>%
+  arrange(desc(change)) %>%
+  select(sensor, change, pct_change) %>%
+  head(15)
+```
+
+```{r chk-extreme-values}
+#| include: False
+sensor_change %>%
+  filter(
+    pct_change <= -90 |
+      pct_change >= 200
+  ) %>%
+  arrange(pct_change)
+```
+
+```{r remove-weird-sensors}
+#| include: False
+sensor_change_clean <- sensor_change %>%
+  filter(
+    `2025` > 1000,
+    `2026` > 1000
+  )
+```
+
+```{r top-changes}
+#| include: False
+top_changes <- sensor_change_clean %>%
+  arrange(desc(abs(change))) %>%
+  slice_head(n = 15)
+```
+
+```{r top-locations-with-changes}
+ggplot(
+  top_changes,
+  aes(
+    x = reorder(sensor, change),
+    y = change
+  )
+) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Largest changes in pedestrian activity between April-May 2025 and April-May 2026",
+    x = NULL,
+    y = "Change in pedestrian counts"
+  )
+```
+
+Figure 2 shows the locations that experienced the largest changes in pedestrian activity between April–May 2025 and April–May 2026. The largest increases were observed at Flinders Lane–Swanston Street, Melbourne Central, RMIT Building 80 and Bourke Street Mall (South), all of which are located within highly active commercial, retail and university precincts. In contrast, several locations including Southbank, St Kilda Road–Alexandra Gardens and New Quay recorded lower pedestrian volumes during the same period. These findings suggest that changes in pedestrian activity were concentrated in specific areas of the CBD rather than being distributed evenly across all locations.
+
+### Did activity patterns vary across different times of day?
+
+```{r hourly-profile}
+#| include: false
+
+hourly_profile <- pedestrian_long %>%
+  filter(
+    format(Date, "%m") %in% c("04", "05")
+  ) %>%
+  group_by(year, Hour) %>%
+  summarise(
+    mean_count = mean(count, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    year = factor(year)
+  )
+```
+
+```{r}
+#| include: false
+
+hourly_profile <- hourly_profile %>%
+  mutate(
+    year = factor(
+      year,
+      levels = c(2025, 2026),
+      labels = c("2025", "2026")
+    )
+  )
+```
+
+```{r hourly-pattern-graph}
+
+ggplot(
+  hourly_profile,
+  aes(
+    x = Hour,
+    y = mean_count,
+    colour = year
+  )
+) +
+  geom_line(linewidth = 1) +
+  labs(
+    x = "Hour",
+    y = "Mean pedestrian count",
+    colour = "Year"
+  ) +
+  theme_minimal()
+```
+
+Figure 3 compares the average hourly pedestrian counts during April and May in 2025 and 2026. Both years exhibit a very similar daily pattern, with pedestrian activity remaining low overnight, increasing rapidly during the morning, remaining elevated throughout the afternoon, and reaching a peak during the late afternoon period.
+
+Although the overall shape of the profiles is nearly identical, pedestrian activity in 2026 was generally higher during the evening hours. The largest differences occurred between 6 pm and 11 pm, where average pedestrian counts were consistently above the corresponding 2025 levels.
+
+These results suggest that while the free public transport initiative was not associated with major changes in the overall daily pattern of movement within the Melbourne CBD, there may have been a modest increase in evening pedestrian activity. This finding is consistent with the possibility that free transport encouraged additional discretionary travel or extended visits to the city during evening periods. However, the observational nature of the data means that causation cannot be established.
+
+### Did Pedestrian Activity Patterns Vary by Day of the Week?
+
+location map
+
+```{r weekday-hour-proces}
+#| include: false
+
+weekday_hour_year <- pedestrian_long %>%
+  filter(
+    format(Date, "%m") %in% c("04", "05")
+  ) %>%
+  mutate(
+    weekday = weekdays(Date),
+    weekday = factor(
+      weekday,
+      levels = c(
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      )
+    )
+  ) %>%
+  group_by(
+    year,
+    weekday,
+    Hour
+  ) %>%
+  summarise(
+    avg_count = mean(count, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+
+```{r heatmap}
+ggplot(
+  weekday_hour_year,
+  aes(
+    x = Hour,
+    y = weekday,
+    fill = avg_count
+  )
+) +
+  geom_tile() +
+  facet_wrap(~year) +
+  labs(
+    title = "Pedestrian activity patterns by day and hour",
+    subtitle = "April-May comparison between 2025 and 2026",
+    x = "Hour of day",
+    y = NULL,
+    fill = "Average count"
+  ) +
+  theme_minimal()
+```
+
+Figure 4 compares pedestrian activity by weekday and hour for April–May 2025 and April–May 2026. Activity remained concentrated during daytime and early evening hours across all days of the week. The similarity between the two heatmaps indicates that weekly behavioural patterns were largely unchanged between years. While some locations experienced increases in pedestrian activity, there was little evidence of substantial changes in the timing of pedestrian movements throughout the week.
+
 ## Conclusions
+
+The objective of this analysis was to investigate how Melbourne CBD pedestrian activity patterns were associated with Victoria's temporary free public transport initiative during April and May 2026.
+
+The results suggest that the initiative was not associated with a substantial city-wide increase in pedestrian activity. Daily pedestrian counts during the initiative period remained broadly consistent with patterns observed prior to its introduction. Similarly, hourly and weekly activity patterns were highly comparable between April–May 2025 and April–May 2026.
+
+However, location-level analysis revealed that several key CBD locations experienced notable increases in pedestrian activity. Areas such as Melbourne Central, Flinders Lane–Swanston Street and Bourke Street Mall recorded substantially higher pedestrian volumes in 2026 compared with the equivalent period in 2025. This indicates that any changes in activity were concentrated within specific commercial, retail and transport precincts rather than being distributed evenly across the city.
+
+Overall, the findings provide limited evidence that the free public transport initiative altered the broader temporal patterns of pedestrian movement within Melbourne CBD. While some locations experienced increased pedestrian activity, the observational nature of the data means that other factors such as events, tourism, economic conditions and seasonal variation may also have contributed to the observed changes.
 
 ## References
 
