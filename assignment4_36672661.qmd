@@ -44,7 +44,7 @@ sensor_meta <- read_delim(
 
 The primary research question for this project is:\
 \
-**How were Melbourne CBD pedestrain activity patterns associated with Victoria's temporary free public transport initiative during April and May 2026?**
+**How were Melbourne CBD pedestrian activity patterns associated with Victoria's temporary free public transport initiative during April and May 2026?**
 
 To answer this question, the following sub-questions will also be explored:\
 \
@@ -164,10 +164,6 @@ sensor_meta %>%
 The 2026 datasets each contained 115 columns (Date, Hour and 113 sensor locations), while the 2025 datasets contained 108 columns. This indicated that additional sensors were introduced between 2025 and 2026. As a result, year-to-year comparisons required careful consideration of sensor availability to ensure like-for-like comparisons.
 
 The audit also identified the use of non-standard missing value indicators ("na" and "undefined") within the pedestrian count data. These values were converted to standard missing values during data cleaning to improve consistency and compatibility with downstream analysis.
-
-The sensor metadata dataset contained 136 sensor records, including location descriptions, installation dates, operational status and geographic coordinates. This information provided important contextual information for interpreting pedestrian activity patterns and creating spatial visualisations.
-
-The datasets contained non-standard missing value indicators recorded as "na" and "undefined" rather than standard missing values. These values were converted to standard missing values during data cleaning.
 
 The sensor metadata file contained 136 sensor records, including sensor descriptions, installation dates, operational status and geographic coordinates. This dataset was used to provide contextual information and support spatial visualisations.
 
@@ -321,7 +317,17 @@ The following processing steps were undertaken:\
 7. Join pedestrian count data with sensor metadata where required.\
 8. Create aggregated datasets for temporal and spatial analysis.
 
+Data processing involved combining monthly files, standardising missing values, restricting the analysis to sensors available in both years, and reshaping the data into a tidy long format suitable for analysis and visualisation. The resulting dataset contained one row for each sensor-hour observation and formed the basis for all subsequent analyses.
+
 ## Data Dictionary
+
+| Variable | Description                                             | Type      |
+|----------|---------------------------------------------------------|-----------|
+| Date     | Date of observation                                     | Date      |
+| Hour     | Hour of day (0–23)                                      | Numeric   |
+| sensor   | Name of pedestrian sensor location                      | Character |
+| count    | Number of pedestrian movements recorded during the hour | Numeric   |
+| year     | Observation year used for comparisons                   | Numeric   |
 
 <!-- Task 2 Tab: Writing your blogpost -->
 
@@ -329,7 +335,15 @@ The following processing steps were undertaken:\
 
 ## Motivation
 
+Melbourne's temporary free public transport initiative during April and May 2026 provided an opportunity to examine whether a transport policy intervention was associated with changes in pedestrian activity within the CBD. As someone who personally experienced the initiative, I was interested in understanding whether its effects could be observed in publicly available pedestrian movement data.
+
+Beyond evaluating this specific initiative, the analysis also demonstrates how urban sensor data can be used to assess changes in city activity patterns. Insights from this type of analysis may help policymakers better understand how transport initiatives influence movement within the city and identify locations or periods that experience the greatest changes in activity.
+
 ## Data
+
+The primary dataset consists of hourly pedestrian counts collected from automated pedestrian sensors located throughout Melbourne CBD. Each observation represents the number of pedestrian movements recorded by a specific sensor during a particular hour.
+
+The study focuses on six monthly datasets covering April–May 2025 and February–May 2026. These periods were selected to enable comparison of pedestrian activity before and during the free public transport initiative introduced in April 2026. A supplementary sensor metadata dataset was also used to provide information about sensor locations, installation details and operational status.
 
 ## Analysis
 
@@ -505,8 +519,6 @@ These results suggest that while the free public transport initiative was not as
 
 ### Did Pedestrian Activity Patterns Vary by Day of the Week?
 
-location map
-
 ```{r weekday-hour-proces}
 #| include: false
 
@@ -575,9 +587,15 @@ Overall, the findings provide limited evidence that the free public transport in
 
 ## References
 
-<!-- Task 3 Tab: Behind the Scenes -  -->
+R Core Team. (2024). *R: A language and environment for statistical computing*. <https://www.r-project.org/>
+
+Wickham, H., et al. (2019). *Welcome to the tidyverse*. Journal of Open Source Software, 4(43), 1686. <https://doi.org/10.21105/joss.01686>\
+
+City of Melbourne Open Data. (2026). Pedestrian Counting System – Monthly Counts Per Hour. City of Melbourne. Retrieved June 2026 from <https://www.pedestrian.melbourne.vic.gov.au/>
+
+City of Melbourne Open Data. (2026). Pedestrian Counting System – Sensor Locations. City of Melbourne. Retrieved June 2026 from <https://data.melbourne.vic.gov.au/explore/dataset/pedestrian-counting-system-sensor-locations/>
+
+<!-- Task 3 Tab: Behind the Scenes -->
+
+# 
 :::
-
-\
-
-# Task 3: Behind the Scenes
