@@ -172,6 +172,141 @@ The audit process informed several subsequent cleaning decisions, including the 
 
 ## Data processing
 
+```{r combine-all-datasets}
+#| include: false
+
+counts_2025 <- bind_rows(
+  apr_2025,
+  may_2025
+)
+
+counts_2026 <- bind_rows(
+  feb_2026,
+  mar_2026,
+  apr_2026,
+  may_2026
+)
+```
+
+```{r handle-Na-values}
+#| include: false
+
+counts_2025 <- counts_2025 %>%
+  mutate(
+    across(
+      where(is.character),
+      ~ na_if(.x, "na")
+    )
+  ) %>%
+  mutate(
+    across(
+      where(is.character),
+      ~ na_if(.x, "undefined")
+    )
+  )
+
+counts_2026 <- counts_2026 %>%
+  mutate(
+    across(
+      where(is.character),
+      ~ na_if(.x, "na")
+    )
+  ) %>%
+  mutate(
+    across(
+      where(is.character),
+      ~ na_if(.x, "undefined")
+    )
+  )
+```
+
+```{r convert-sensor-to-numeric}
+#| include: false
+
+counts_2025 <- counts_2025 %>%
+  mutate(across(-Date, as.numeric))
+
+counts_2026 <- counts_2026 %>%
+  mutate(across(-Date, as.numeric))
+```
+
+```{r identify-common-sensors}
+#| include: false
+common_sensors <- intersect(
+  names(counts_2025),
+  names(counts_2026)
+)
+
+setdiff(
+  names(counts_2026),
+  names(counts_2025)
+)
+
+length(common_sensors)
+```
+
+```{r keep-only-common-sensors}
+#| include: false
+
+counts_2025 <- counts_2025 %>%
+  select(all_of(common_sensors))
+
+counts_2026 <- counts_2026 %>%
+  select(all_of(common_sensors))
+```
+
+```{r pivot-to-long-format}
+#| include: false
+
+counts_2025_long <- counts_2025 %>%
+  pivot_longer(
+    cols = -c(Date, Hour),
+    names_to = "sensor",
+    values_to = "count"
+  )
+
+counts_2026_long <- counts_2026 %>%
+  pivot_longer(
+    cols = -c(Date, Hour),
+    names_to = "sensor",
+    values_to = "count"
+  )
+```
+
+```{r add-year-label}
+#| include: false
+
+counts_2025_long <- counts_2025_long %>%
+  mutate(year = 2025)
+
+counts_2026_long <- counts_2026_long %>%
+  mutate(year = 2026)
+```
+
+```{r combine-processed-dataset}
+#| include: false
+
+pedestrian_long <- bind_rows(
+  counts_2025_long,
+  counts_2026_long
+)
+```
+
+```{r fix-date-format}
+#| include: false
+
+pedestrian_long <- pedestrian_long %>%
+  mutate(
+    Date = as.Date(Date, format = "%d/%m/%Y")
+  )
+```
+
+```{r}
+#| include: false
+
+summary(pedestrian_long$Date)
+```
+
 The following processing steps were undertaken:\
 \
 1. Download monthly pedestrian count datasets and sensor location metadata.\
