@@ -5,3 +5,4 @@
 .DS_Store
 outputs/*.html
 .~lock.*
+*_files

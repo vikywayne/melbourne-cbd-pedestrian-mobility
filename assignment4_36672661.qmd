@@ -3,18 +3,189 @@ title: "Free Public Transport and Pedestrian Activity in Melbourne CBD"
 subtitle: "Assignment 4 ETC5512"
 author: "Annamalai Vikash Raam Manoj"
 format: html
+
+execute:
+  echo: false
+  warning: false
+  message: false
+
 editor: visual
 ---
 
+::: panel-tabset
+<!-- Task 1 Tab: Data and Documenting -->
+
 # Task 1: Data and Documenting
+
+```{r}
+#| include: false
+
+library(tidyverse)
+library(janitor)
+
+feb_2026 <- read_csv("data/February_2026.csv")
+mar_2026 <- read_csv("data/March_2026.csv")
+apr_2026 <- read_csv("data/April_2026.csv")
+may_2026 <- read_csv("data/May_2026.csv")
+
+apr_2025 <- read_csv("data/April_2025.csv")
+may_2025 <- read_csv("data/May_2025.csv")
+
+sensor_meta <- read_delim(
+  "data/pedestrian-counting-system-sensor-locations.csv",
+  delim = ";"
+)
+```
 
 ## Research Question
 
+The primary research question for this project is:\
+\
+**How were Melbourne CBD pedestrain activity patterns associated with Victoria's temporary free public transport initiative during April and May 2026?**
+
+To answer this question, the following sub-questions will also be explored:\
+\
+- Did overall pedestrian activity change during the initiative period compared with February and March 2026?\
+- Were pedestrian activity patterns during April and May 2026 different from equivalent periods in 2025?\
+- Which sensor locations experienced the largest changes in pedestrian activity?\
+- Did activity patterns vary across different times of day?
+
 ## Data Sources
 
-## Data Processing
+Two datasets from the City of Melbourne Open Data platform were used.
+
+## Dataset 1: Pedestrian Counting System – Monthly Counts Per Hour
+
+\
+This dataset contains hourly pedestrian counts collected from sensor locations throughout Melbourne CBD. The data is automatically collected and published as open data through the City of Melbourne Open Data portal.\
+\
+Files used:\
+\
+- April 2025\
+- May 2025\
+- February 2026\
+- March 2026\
+- April 2026\
+- May 2026
+
+## Dataset 2: Pedestrian Counting System – Sensor Locations
+
+This supplementary dataset contains sensor metadata including:\
+\
+- sensor descriptions\
+- installation information\
+- geographic coordinates\
+- operational status\
+- sensor notes\
+\
+The metadata dataset was used to provide location context and support spatial visualisations.
+
+## Data Audit
+
+Prior to analysis, the datasets were audited to assess:
+
+- consistency of dataset structure across months and years
+- differences in sensor coverage between 2025 and 2026
+- the presence and extent of missing values
+- suitability of the sensor metadata for spatial analysis
+
+```{r}
+# check dimensions
+#| echo: false
+
+tibble(
+  dataset = c(
+    "February 2026",
+    "March 2026",
+    "April 2026",
+    "May 2026",
+    "April 2025",
+    "May 2025"
+  ),
+  rows = c(
+    nrow(feb_2026),
+    nrow(mar_2026),
+    nrow(apr_2026),
+    nrow(may_2026),
+    nrow(apr_2025),
+    nrow(may_2025)
+  ),
+  columns = c(
+    ncol(feb_2026),
+    ncol(mar_2026),
+    ncol(apr_2026),
+    ncol(may_2026),
+    ncol(apr_2025),
+    ncol(may_2025)
+  )
+)
+```
+
+```{r}
+# missing value summary
+#| echo: false
+
+tibble(
+  dataset = c(
+    "February 2026",
+    "March 2026",
+    "April 2026",
+    "May 2026"
+  ),
+  na_values = c(
+    sum(feb_2026 == "na", na.rm = TRUE),
+    sum(mar_2026 == "na", na.rm = TRUE),
+    sum(apr_2026 == "na", na.rm = TRUE),
+    sum(may_2026 == "na", na.rm = TRUE)
+  ),
+  undefined_values = c(
+    sum(feb_2026 == "undefined", na.rm = TRUE),
+    sum(mar_2026 == "undefined", na.rm = TRUE),
+    sum(apr_2026 == "undefined", na.rm = TRUE),
+    sum(may_2026 == "undefined", na.rm = TRUE)
+  )
+)
+```
+
+```{r}
+# sensor metadata summary
+#| echo: false
+
+sensor_meta %>%
+  summarise(
+    sensors = n(),
+    active_sensors = sum(status == "A", na.rm = TRUE)
+  )
+```
+
+The 2026 datasets each contained 115 columns (Date, Hour and 113 sensor locations), while the 2025 datasets contained 108 columns. This indicated that additional sensors were introduced between 2025 and 2026. As a result, year-to-year comparisons required careful consideration of sensor availability to ensure like-for-like comparisons.
+
+The audit also identified the use of non-standard missing value indicators ("na" and "undefined") within the pedestrian count data. These values were converted to standard missing values during data cleaning to improve consistency and compatibility with downstream analysis.
+
+The sensor metadata dataset contained 136 sensor records, including location descriptions, installation dates, operational status and geographic coordinates. This information provided important contextual information for interpreting pedestrian activity patterns and creating spatial visualisations.
+
+The datasets contained non-standard missing value indicators recorded as "na" and "undefined" rather than standard missing values. These values were converted to standard missing values during data cleaning.
+
+The sensor metadata file contained 136 sensor records, including sensor descriptions, installation dates, operational status and geographic coordinates. This dataset was used to provide contextual information and support spatial visualisations.
+
+The audit process informed several subsequent cleaning decisions, including the handling of missing values, selection of comparable sensors across years and preparation of data for spatial analysis.
+
+## Data processing
+
+The following processing steps were undertaken:\
+\
+1. Download monthly pedestrian count datasets and sensor location metadata.\
+2. Import data into R using the tidyverse packages.\
+3. Audit dataset structure and identify inconsistencies.\
+4. Convert non-standard missing values ("na" and "undefined") into standard missing values.\
+5. Reshape the data from wide format into tidy long format.\
+6. Restrict year-to-year comparisons to sensors available in both 2025 and 2026.\
+7. Join pedestrian count data with sensor metadata where required.\
+8. Create aggregated datasets for temporal and spatial analysis.
 
 ## Data Dictionary
+
+<!-- Task 2 Tab: Writing your blogpost -->
 
 # Task 2: Blog Post
 
@@ -27,5 +198,10 @@ editor: visual
 ## Conclusions
 
 ## References
+
+<!-- Task 3 Tab: Behind the Scenes -  -->
+:::
+
+\
 
 # Task 3: Behind the Scenes
