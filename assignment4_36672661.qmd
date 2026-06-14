@@ -83,6 +83,8 @@ This supplementary dataset contains sensor metadata including:\
 \
 The metadata dataset was used to provide location context and support spatial visualisations.
 
+The datasets are published by the City of Melbourne through its Open Data platform and are updated regularly. Pedestrian counts are collected automatically by sensors installed throughout the CBD, while the metadata dataset provides supporting information about sensor locations and operational characteristics.
+
 ## Data Audit
 
 Prior to analysis, the datasets were audited to assess:
@@ -359,6 +361,8 @@ daily_totals <- pedestrian_long %>%
 ```
 
 ```{r before-vs-after-initiative-graph}
+#| label: fig-daily-activity
+#| fig-cap: "Daily pedestrian activity across Melbourne CBD from February to May 2026. The dashed vertical line indicates the commencement of the free public transport initiative on 1 April 2026."
 
 ggplot(
   daily_totals,
@@ -367,20 +371,29 @@ ggplot(
     y = total_pedestrians
   )
 ) +
-  geom_line() +
+  geom_line(
+    colour = "#2C5282",
+    linewidth = 0.8
+  ) +
   geom_vline(
     xintercept = as.Date("2026-04-01"),
+    colour = "#C44E52",
+    linewidth = 0.8,
     linetype = "dashed"
   ) +
   labs(
-    title = "Daily Pedestrian Activity in Melbourne CBD",
-    subtitle = "Free public transport initiative commenced in April 2026",
+    subtitle = "Free public transport initiative commenced on 1 April 2026",
     x = "Date",
     y = "Daily pedestrian count"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.subtitle = element_text(size = 10),
+    axis.title = element_text(face = "bold")
   )
 ```
 
-Figure 1 shows daily pedestrian activity across Melbourne CBD from February to May 2026. A vertical dashed line marks the commencement of the temporary free public transport initiative in April 2026.
+@fig-daily-activity shows daily pedestrian activity across Melbourne CBD from February to May 2026. A vertical dashed line marks the commencement of the temporary free public transport initiative in April 2026.
 
 Pedestrian activity exhibited strong day-to-day variation throughout the study period. While daily counts remained relatively high following the introduction of the initiative, no immediate city-wide increase in pedestrian activity was visually apparent. This suggests that any association between the initiative and pedestrian activity may have been concentrated at specific locations or times of day rather than across the CBD as a whole.
 
@@ -441,24 +454,54 @@ top_changes <- sensor_change_clean %>%
   slice_head(n = 15)
 ```
 
+```{r add direction}
+#| include: False
+
+top_changes <- top_changes %>%
+  mutate(
+    direction = if_else(
+      change > 0,
+      "Increase",
+      "Decrease"
+    )
+  )
+```
+
 ```{r top-locations-with-changes}
+#| label: fig-location-changes
+#| fig-cap: "Largest increases and decreases in pedestrian activity between April–May 2025 and April–May 2026."
+
 ggplot(
   top_changes,
   aes(
     x = reorder(sensor, change),
-    y = change
+    y = change,
+    fill = direction
   )
 ) +
   geom_col() +
   coord_flip() +
+  scale_fill_manual(
+    values = c(
+      "Increase" = "#2E8B57",
+      "Decrease" = "#C44E52"
+    )
+  ) +
   labs(
-    title = "Largest changes in pedestrian activity between April-May 2025 and April-May 2026",
+    subtitle = "April–May 2025 compared with April–May 2026",
     x = NULL,
-    y = "Change in pedestrian counts"
+    y = "Change in pedestrian counts",
+    fill = NULL
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold"),
+    axis.text.y = element_text(size = 9),
+    legend.position = "top"
   )
 ```
 
-Figure 2 shows the locations that experienced the largest changes in pedestrian activity between April–May 2025 and April–May 2026. The largest increases were observed at Flinders Lane–Swanston Street, Melbourne Central, RMIT Building 80 and Bourke Street Mall (South), all of which are located within highly active commercial, retail and university precincts. In contrast, several locations including Southbank, St Kilda Road–Alexandra Gardens and New Quay recorded lower pedestrian volumes during the same period. These findings suggest that changes in pedestrian activity were concentrated in specific areas of the CBD rather than being distributed evenly across all locations.
+@fig-location-changes shows the locations that experienced the largest changes in pedestrian activity between April–May 2025 and April–May 2026. The largest increases were observed at Flinders Lane–Swanston Street, Melbourne Central, RMIT Building 80 and Bourke Street Mall (South), all of which are located within highly active commercial, retail and university precincts. In contrast, several locations including Southbank, St Kilda Road–Alexandra Gardens and New Quay recorded lower pedestrian volumes during the same period. These findings suggest that changes in pedestrian activity were concentrated in specific areas of the CBD rather than being distributed evenly across all locations.
 
 ### Did activity patterns vary across different times of day?
 
@@ -493,6 +536,8 @@ hourly_profile <- hourly_profile %>%
 ```
 
 ```{r hourly-pattern-graph}
+#| label: fig-hourly-pattern
+#| fig-cap: "Average hourly pedestrian activity during April–May 2025 and April–May 2026."
 
 ggplot(
   hourly_profile,
@@ -502,16 +547,28 @@ ggplot(
     colour = year
   )
 ) +
-  geom_line(linewidth = 1) +
+  geom_line(
+    linewidth = 1.1
+  ) +
+  scale_colour_manual(
+    values = c(
+      "2025" = "#4C78A8",
+      "2026" = "#F58518"
+    )
+  ) +
   labs(
-    x = "Hour",
+    x = "Hour of day",
     y = "Mean pedestrian count",
     colour = "Year"
   ) +
-  theme_minimal()
+  theme_minimal() +
+  theme(
+    axis.title = element_text(face = "bold"),
+    legend.position = "top"
+  )
 ```
 
-Figure 3 compares the average hourly pedestrian counts during April and May in 2025 and 2026. Both years exhibit a very similar daily pattern, with pedestrian activity remaining low overnight, increasing rapidly during the morning, remaining elevated throughout the afternoon, and reaching a peak during the late afternoon period.
+@fig-hourly-pattern compares the average hourly pedestrian counts during April and May in 2025 and 2026. Both years exhibit a very similar daily pattern, with pedestrian activity remaining low overnight, increasing rapidly during the morning, remaining elevated throughout the afternoon, and reaching a peak during the late afternoon period.
 
 Although the overall shape of the profiles is nearly identical, pedestrian activity in 2026 was generally higher during the evening hours. The largest differences occurred between 6 pm and 11 pm, where average pedestrian counts were consistently above the corresponding 2025 levels.
 
@@ -553,6 +610,9 @@ weekday_hour_year <- pedestrian_long %>%
 ```
 
 ```{r heatmap}
+#| label: fig-weekday-heatmap
+#| fig-cap: "Average pedestrian activity by weekday and hour during April–May 2025 and April–May 2026."
+
 ggplot(
   weekday_hour_year,
   aes(
@@ -563,17 +623,29 @@ ggplot(
 ) +
   geom_tile() +
   facet_wrap(~year) +
+  scale_fill_gradientn(
+    colours = c(
+      "#F7FBFF",
+      "#C6DBEF",
+      "#6BAED6",
+      "#2171B5"
+    )
+  ) +
   labs(
-    title = "Pedestrian activity patterns by day and hour",
-    subtitle = "April-May comparison between 2025 and 2026",
+    subtitle = "Comparison of pedestrian activity patterns across weekdays and hours",
     x = "Hour of day",
     y = NULL,
-    fill = "Average count"
+    fill = "Average\ncount"
   ) +
-  theme_minimal()
+  theme_minimal() +
+  theme(
+    axis.title = element_text(face = "bold"),
+    legend.position = "right",
+    strip.text = element_text(face = "bold")
+  )
 ```
 
-Figure 4 compares pedestrian activity by weekday and hour for April–May 2025 and April–May 2026. Activity remained concentrated during daytime and early evening hours across all days of the week. The similarity between the two heatmaps indicates that weekly behavioural patterns were largely unchanged between years. While some locations experienced increases in pedestrian activity, there was little evidence of substantial changes in the timing of pedestrian movements throughout the week.
+@fig-weekday-heatmap compares pedestrian activity by weekday and hour for April–May 2025 and April–May 2026. Activity remained concentrated during daytime and early evening hours across all days of the week. The similarity between the two heatmaps indicates that weekly behavioural patterns were largely unchanged between years. While some locations experienced increases in pedestrian activity, there was little evidence of substantial changes in the timing of pedestrian movements throughout the week.
 
 ## Conclusions
 
